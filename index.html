@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>EventPass | Shows e Eventos</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+```
+
+</head>
+
+<body>
+
+```
+<!-- HEADER -->
+
+<header>
+    <div class="container navbar">
+
+        <div class="logo">
+            EVENT<span>PASS</span>
+        </div>
+
+        <nav>
+            <a href="#inicio">Início</a>
+            <a href="#eventos">Eventos</a>
+            <a href="#categorias">Categorias</a>
+            <a href="#sobre">Sobre</a>
+        </nav>
+
+        <div class="header-actions">
+
+            <button class="login-btn" onclick="mostrarLogin()">
+                Entrar
+            </button>
+
+            <button class="cart-btn" onclick="abrirCarrinho()">
+                🛒
+                <span id="cart-count">0</span>
+            </button>
+
+        </div>
+
+    </div>
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero" id="inicio">
+
+    <div class="container hero-content">
+
+        <div class="hero-text">
+
+            <span class="tag">
+                🎟️ A EXPERIÊNCIA COMEÇA AQUI
+            </span>
+
+            <h1>
+                Viva os melhores
+                <span>eventos.</span>
+            </h1>
+
+            <p>
+                Shows, festivais, teatro, cultura e experiências inesquecíveis.
+                Encontre seu próximo evento e garanta seu ingresso.
+            </p>
+
+            <a href="#eventos" class="primary-btn">
+                Explorar eventos
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SEARCH -->
+
+<section class="search-section">
+
+    <div class="container search-container">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="🔎 Procure por artistas, eventos ou cidades..."
+            onkeyup="buscarEventos()"
+        >
+
+    </div>
+
+</section>
+
+
+<!-- CATEGORIES -->
+
+<section class="categories" id="categorias">
+
+    <div class="container">
+
+        <h2>Categorias</h2>
+
+        <div class="category-list">
+
+            <button onclick="filtrarCategoria('Todos')">
+                Todos
+            </button>
+
+            <button onclick="filtrarCategoria('Shows')">
+                🎤 Shows
+            </button>
+
+            <button onclick="filtrarCategoria('Festivais')">
+                🎶 Festivais
+            </button>
+
+            <button onclick="filtrarCategoria('Teatro')">
+                🎭 Teatro
+            </button>
+
+            <button onclick="filtrarCategoria('Cultura')">
+                🏛️ Cultura
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- EVENTS -->
+
+<section class="events" id="eventos">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div>
+                <p class="section-tag">
+                    NÃO PERCA
+                </p>
+
+                <h2>Eventos em destaque</h2>
+            </div>
+
+        </div>
+
+
+        <div class="events-grid" id="events-container">
+
+            <!-- Eventos criados pelo JavaScript -->
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section class="about" id="sobre">
+
+    <div class="container about-content">
+
+        <div>
+
+            <p class="section-tag">
+                SOBRE A EVENTPASS
+            </p>
+
+            <h2>
+                Mais do que ingressos.
+                <span>Experiências.</span>
+            </h2>
+
+        </div>
+
+        <p>
+            A EventPass conecta pessoas às melhores experiências culturais
+            e de entretenimento. Descubra eventos, compre seus ingressos
+            e viva momentos que merecem ser lembrados.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="container footer-content">
+
+        <div>
+
+            <div class="logo">
+                EVENT<span>PASS</span>
+            </div>
+
+            <p>
+                Seu próximo grande momento começa aqui.
+            </p>
+
+        </div>
+
+        <p>
+            © 2026 EventPass. Todos os direitos reservados.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<!-- EVENT MODAL -->
+
+<div class="modal" id="eventModal">
+
+    <div class="modal-content">
+
+        <button
+            class="close-modal"
+            onclick="fecharEvento()"
+        >
+            ×
+        </button>
+
+        <img
+            id="modal-image"
+            src=""
+            alt="Evento"
+        >
+
+        <div class="modal-info">
+
+            <span id="modal-category"></span>
+
+            <h2 id="modal-title"></h2>
+
+            <p id="modal-date"></p>
+
+            <p id="modal-location"></p>
+
+            <p id="modal-description"></p>
+
+            <h3 id="modal-price"></h3>
+
+
+            <div class="ticket-selection">
+
+                <button onclick="alterarQuantidade(-1)">
+                    −
+                </button>
+
+                <span id="ticket-quantity">
+                    1
+                </span>
+
+                <button onclick="alterarQuantidade(1)">
+                    +
+                </button>
+
+            </div>
+
+
+            <button
+                class="primary-btn buy-btn"
+                onclick="adicionarAoCarrinho()"
+            >
+                Adicionar ao carrinho
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- CART -->
+
+<div class="cart-panel" id="cartPanel">
+
+    <div class="cart-header">
+
+        <h2>Seu carrinho</h2>
+
+        <button onclick="fecharCarrinho()">
+            ×
+        </button>
+
+    </div>
+
+
+    <div id="cart-items">
+
+        <!-- Itens do carrinho -->
+
+    </div>
+
+
+    <div class="cart-footer">
+
+        <h3>
+            Total:
+            <span id="cart-total">
+                R$ 0,00
+            </span>
+        </h3>
+
+
+        <button
+            class="primary-btn checkout-btn"
+            onclick="finalizarCompra()"
+        >
+            Finalizar compra
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- LOGIN MODAL -->
+
+<div class="modal" id="loginModal">
+
+    <div class="login-content">
+
+        <button
+            class="close-modal"
+            onclick="fecharLogin()"
+        >
+            ×
+        </button>
+
+        <h2>Bem-vindo!</h2>
+
+        <p>
+            Entre para acompanhar seus ingressos.
+        </p>
+
+        <input
+            type="text"
+            placeholder="Seu nome"
+            id="userName"
+        >
+
+        <button
+            class="primary-btn"
+            onclick="fazerLogin()"
+        >
+            Entrar
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- NOTIFICATION -->
+
+<div id="notification">
+
+    Produto adicionado ao carrinho!
+
+</div>
+
+
+<script src="script.js"></script>
+```
+
+</body>
+</html>
